@@ -15,7 +15,7 @@ const addCategoriaDB = async (body) => {
         const { nome } = body;
         const results = await pool.query(`INSERT INTO categorias (nome) 
             VALUES ($1)
-            returning codigo, nome`,
+            RETURNING codigo, nome`,
             [nome]);
         const categoria = results.rows[0];
         return new Categoria(categoria.codigo, categoria.nome);
@@ -28,7 +28,7 @@ const addCategoriaDB = async (body) => {
 const updateCategoriaDB = async (body) => {
     try {
         const { codigo, nome } = body;
-        const results = await pool.query(`UPDATE categorias set nome = $2 where codigo = $1 
+        const results = await pool.query(`UPDATE categorias set nome = $2 WHERE codigo = $1 
         returning codigo, nome`,
             [codigo, nome]);
         if (results.rowCount == 0) {
@@ -43,7 +43,7 @@ const updateCategoriaDB = async (body) => {
 
 const deleteCategoriaDB = async (codigo) => {
     try {
-        const results = await pool.query(`DELETE FROM categorias where codigo = $1`,
+        const results = await pool.query(`DELETE FROM categorias WHERE codigo = $1`,
             [codigo]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo} para ser removido`;

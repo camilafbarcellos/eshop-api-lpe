@@ -1,21 +1,21 @@
 const { 
-    getCategoriasDB, addCategoriaDB, updateCategoriaDB, 
-    deleteCategoriaDB, getCategoriaPorCodigoDB 
-} = require('../usecases/categoriaUseCases')
+    getProdutosDB, addProdutoDB, updateProdutoDB, 
+    deleteProdutoDB, getProdutoPorCodigoDB 
+} = require('../usecases/produtoUseCases')
 
-const getCategorias = async (request, response) => {
-    await getCategoriasDB()
+const getProdutos = async (request, response) => {
+    await getProdutosDB()
         .then(data => response.status(200).json(data))
         .catch(err => response.status(400).json({
             status: 'error',
-            message: 'Erro ao consultar as categorias: ' + err
+            message: 'Erro ao consultar os produtos: ' + err
         }));
 }
 
-const addCategoria = async (request, response) => {
-    await addCategoriaDB(request.body)
+const addProduto = async (request, response) => {
+    await addProdutoDB(request.body)
         .then(data => response.status(200).json({
-            status: 'success', message: 'Categoria criada',
+            status: 'success', message: 'Produto criado',
             objeto: data
         }))
         .catch(err => response.status(400).json({
@@ -24,10 +24,10 @@ const addCategoria = async (request, response) => {
         }));
 }
 
-const updateCategoria = async (request, response) => {
-    await updateCategoriaDB(request.body)
+const updateProduto = async (request, response) => {
+    await updateProdutoDB(request.body)
         .then(data => response.status(200).json({
-            status: 'success', message: 'Categoria alterada',
+            status: 'success', message: 'Produto alterado',
             objeto: data
         }))
         .catch(err => response.status(400).json({
@@ -36,27 +36,27 @@ const updateCategoria = async (request, response) => {
         }));
 }
 
-const deleteCategoria = async (request, response) => {
-    await deleteCategoriaDB(parseInt(request.params.codigo))
+const deleteProduto = async (request, response) => {
+    await deleteProdutoDB(parseInt(request.params.codigo))
         .then(data => response.status(200).json({
             status: 'success', message: data
         }))
         .catch(err => response.status(400).json({
             status: 'error',
             message: err
-        }));
+        }));        
 }
 
-const getCategoriaPorCodigo = async (request, response) => {
-    await getCategoriaPorCodigoDB(parseInt(request.params.codigo))
+const getProdutoPorCodigo= async (request, response) => {
+    await getProdutoPorCodigoDB(parseInt(request.params.codigo))
         .then(data => response.status(200).json(data))
         .catch(err => response.status(400).json({
             status: 'error',
             message: err
-        }));
+        }));           
 }
 
 module.exports = {
-    getCategorias, addCategoria, updateCategoria, 
-    deleteCategoria, getCategoriaPorCodigo
+   getProdutos, addProduto, updateProduto, 
+   deleteProduto, getProdutoPorCodigo
 }
