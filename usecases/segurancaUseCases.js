@@ -7,12 +7,12 @@ const autenticaUsuarioDB = async (body) => {
         const results = await pool.query(`SELECT * FROM usuarios WHERE email = $1 AND senha = $2`,
             [email, senha]);
         if (results.rowCount == 0) {
-            throw "Usuário ou senha inválidos";
+            throw 'Usuário ou senha inválidos';
         }
         const usuario = results.rows[0];
         return new Usuario(usuario.email, usuario.tipo, usuario.nome, usuario.telefone);
     } catch (err) {
-        throw "Erro ao autenticar o usuário: " + err;
+        throw 'Erro ao autenticar o usuário: ' + err;
     }
 }
 
